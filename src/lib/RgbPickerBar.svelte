@@ -31,26 +31,26 @@
 
         if (r > 0 && b == 0) {
             if (r == 1) {
-                result = g / 6
+                result = g / 6;
             }
-            if (g == 1) {
-                result = (r + 1) / 6
+            else if (g == 1) {
+                result = (2 - r) / 6
             }
         }
-        if (g > 0 && r == 0) {
+        else if (g > 0 && r == 0) {
             if (g == 1) {
                 result = (b + 2) / 6
             }
-            if (b == 1) {
-                result = (g + 3) / 6
+            else if (b == 1) {
+                result = (4 - g) / 6
             }
         }
-        if (b > 0 && g == 0) {
+        else if (b > 0 && g == 0) {
             if (b == 1) {
                 result = (r + 4) / 6
             }
-            if (r == 1) {
-                result = (b + 5) / 6
+            else if (r == 1) {
+                result = (6 - b) / 6
             }
         }
         return result;
