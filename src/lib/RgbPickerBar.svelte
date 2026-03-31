@@ -5,54 +5,27 @@
         b: number;
     }
 
+    // Maps RGB → hue position [0, 1) for the gradient bar
     const deriveLinearXValue = (
         r: number = 0,
         g: number = 0,
         b: number = 0,
     ) => {
-        const range = Math.max(r, g, b);
+        const max = Math.max(r, g, b);
         const min = Math.min(r, g, b);
-        console.log(min);
+        const delta = max - min; // color range; 0 means gray
 
-        // ignore minimum;
-        if (b === min) {
-            b = 0;
-        } else if (g === min) {
-            g = 0;
-        } else {
-            r = 0;
-        }
+        if (delta === 0) return 0; // no hue for grays
 
-        r = r / range;
-        g = g / range;
-        b = b / range;
+        // dominant channel sets the 60° sector (0–2, 2–4, 4–6);
+        // fractional part interpolates within it
+        const offset =
+            max === r ? (g - b) / delta :
+            max === g ? 2 + (b - r) / delta :
+            4 + (r - g) / delta;
 
-        let result = 0;
-
-        if (r > 0 && b == 0) {
-            if (r == 1) {
-                result = g / 6;
-            }
-            else if (g == 1) {
-                result = (2 - r) / 6
-            }
-        }
-        else if (g > 0 && r == 0) {
-            if (g == 1) {
-                result = (b + 2) / 6
-            }
-            else if (b == 1) {
-                result = (4 - g) / 6
-            }
-        }
-        else if (b > 0 && g == 0) {
-            if (b == 1) {
-                result = (r + 4) / 6
-            }
-            else if (r == 1) {
-                result = (6 - b) / 6
-            }
-        }
+        // double-mod handles negatives, /6 maps to [0, 1)
+        const result = (((offset % 6) + 6) % 6) / 6;
         return result;
     };
 
@@ -62,11 +35,31 @@
         b = $bindable(0),
         ...props
     }: Props = $props();
+
     let linearValue = $derived(deriveLinearXValue(r, g, b));
+
+    // Inverse of deriveLinearXValue: hue position → RGB, preserving current max
+    const deriveRgbValues = (hue: number) => {
+        const offset = hue * 6;
+        const sector = Math.floor(offset) % 6;
+        const frac = offset - Math.floor(offset);
+        const m = Math.max(r, g, b) || 255; // preserve current max; fallback to 255 if all zero
+
+        switch (sector) {
+            case 0: r = m; g = Math.round(m * frac);       b = 0; break; // R→Y
+            case 1: g = m; r = Math.round(m * (1 - frac)); b = 0; break; // Y→G
+            case 2: g = m; b = Math.round(m * frac);       r = 0; break; // G→C
+            case 3: b = m; g = Math.round(m * (1 - frac)); r = 0; break; // C→B
+            case 4: b = m; r = Math.round(m * frac);       g = 0; break; // B→M
+            case 5: r = m; b = Math.round(m * (1 - frac)); g = 0; break; // M→R
+        }
+    };
 </script>
 
 <div class="bar">
-    <input type="range" min="0" max="1" step="0.01" bind:value={linearValue} />
+    <input type="range" min="0" max="1" step="0.01"
+        bind:value={linearValue}
+        oninput={e => deriveRgbValues(parseFloat(e.currentTarget.value))} />
 </div>
 
 <style>

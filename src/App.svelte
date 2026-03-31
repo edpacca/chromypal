@@ -70,9 +70,9 @@
 
 <div class="bar__container">
     <RgbPickerBar
-        bind:r={activeRGBA.R}
-        bind:g={activeRGBA.G}
-        bind:b={activeRGBA.B}
+        bind:r={activeRValue}
+        bind:g={activeGValue}
+        bind:b={activeBValue}
     />
 </div>
 
