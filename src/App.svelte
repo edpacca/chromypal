@@ -3,7 +3,7 @@
     import RgbPickerBar from "./lib/RgbPickerBar.svelte";
     import type { RGBAColor } from "./types";
 
-    let activeRValue = $state(0);
+    let activeRValue = $state(255);
     let activeGValue = $state(0);
     let activeBValue = $state(0);
     let activeAValue = $state(255);
