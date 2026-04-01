@@ -1,5 +1,5 @@
 <script lang="ts">
-    import ColourBlocks from "./lib/ColourBlocks.svelte";
+    import ColourBlocks from "./lib/ColourBlockPalette.svelte";
     import NumRangeInput from "./lib/NumRangeInput.svelte";
     import RgbPickerBar from "./lib/RgbPickerBar.svelte";
     import { activeRGBA, blockData, saveActiveBlock } from "./store/colourStore.svelte";
@@ -26,7 +26,7 @@
 
 <button onclick={saveActiveBlock}>Save</button>
 
-<ColourBlocks blockData={[activeRGBA, ...blockData]}/>
+<ColourBlocks currentBlock={activeRGBA} blockData={blockData}/>
 
 <style>
     .inputs__container {

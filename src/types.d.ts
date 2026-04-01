@@ -3,5 +3,6 @@ export interface RGBAColor {
     G: number;
     B: number;
     A: number;
+    id?: number;
 }
 

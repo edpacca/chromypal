@@ -9,6 +9,13 @@ export const activeRGBA: RGBAColor = $state({
 
 export const blockData: RGBAColor[] = $state([]);
 
+let nextId = 0;
+
 export const saveActiveBlock = () => {
-    blockData.push({ ...activeRGBA });
+    blockData.push({ ...activeRGBA, id: nextId++ });
+};
+
+export const removeBlock = (id: number) => {
+    const idx = blockData.findIndex(b => b.id === id);
+    if (idx !== -1) blockData.splice(idx, 1);
 };
