@@ -1,4 +1,5 @@
 <script lang="ts">
+    import AlphaPickerBar from "./lib/AlphaPickerBar.svelte";
     import ColourBlocks from "./lib/ColourBlockPalette.svelte";
     import NumRangeInput from "./lib/NumRangeInput.svelte";
     import RgbPickerBar from "./lib/RgbPickerBar.svelte";
@@ -22,6 +23,12 @@
         bind:g={activeRGBA.G}
         bind:b={activeRGBA.B}
     />
+    <AlphaPickerBar
+        bind:a={activeRGBA.A}
+        r={activeRGBA.R}
+        g={activeRGBA.G}
+        b={activeRGBA.B}
+    />
 </div>
 
 <button onclick={saveActiveBlock}>Save</button>
@@ -38,5 +45,7 @@
         justify-content: center;
         align-items: center;
         padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
     }
 </style>
