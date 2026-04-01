@@ -6,7 +6,7 @@
     }
 
     // Maps RGB → hue position [0, 1) for the gradient bar
-    const deriveLinearXValue = (
+    const deriveHueValue = (
         r: number = 0,
         g: number = 0,
         b: number = 0,
@@ -36,11 +36,11 @@
         ...props
     }: Props = $props();
 
-    let linearValue = $derived(deriveLinearXValue(r, g, b));
+    let hueValue = $derived(deriveHueValue(r, g, b));
 
     // Inverse of deriveLinearXValue: hue position → RGB, preserving current max
-    const deriveRgbValues = (hue: number) => {
-        const offset = hue * 6;
+    const deriveRgbValues = (hueValue: number) => {
+        const offset = hueValue * 6;
         const sector = Math.floor(offset) % 6;
         const frac = offset - Math.floor(offset);
         const m = Math.max(r, g, b) || 255; // preserve current max; fallback to 255 if all zero
@@ -58,7 +58,7 @@
 
 <div class="bar">
     <input type="range" min="0" max="1" step="0.01"
-        bind:value={linearValue}
+        bind:value={hueValue}
         oninput={e => deriveRgbValues(parseFloat(e.currentTarget.value))} />
 </div>
 
