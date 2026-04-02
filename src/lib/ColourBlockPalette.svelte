@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { removeBlock } from "../store/colourStore.svelte";
+    import { colourStore } from "../store/colourStore.svelte";
     import type { RGBAColor } from "../types";
     import ColourBlock from "./ColourBlock.svelte";
 
@@ -19,7 +19,7 @@
         {#each blockData as data (data.id)}
             <ColourBlock
                 rgba={data}
-                deleteBlock={() => removeBlock(data.id!)}
+                deleteBlock={() => colourStore.removePaletteEntry(data.id!)}
             />
         {/each}
     </div>

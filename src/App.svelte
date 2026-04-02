@@ -2,11 +2,7 @@
     import AlphaSection from "./lib/AlphaSection.svelte";
     import ColourBlocks from "./lib/ColourBlockPalette.svelte";
     import RgbSection from "./lib/RgbSection.svelte";
-    import {
-        activeRGBA,
-        blockData,
-        saveActiveBlock,
-    } from "./store/colourStore.svelte";
+    import { colourStore } from "./store/colourStore.svelte";
 </script>
 
 <nav>
@@ -15,13 +11,13 @@
 </nav>
 <main>
     <div class="controls">
-        <RgbSection bind:r={activeRGBA.R} bind:g={activeRGBA.G} bind:b={activeRGBA.B} />
-        <AlphaSection bind:a={activeRGBA.A} r={activeRGBA.R} g={activeRGBA.G} b={activeRGBA.B} />
+        <RgbSection bind:r={colourStore.activeEntry.R} bind:g={colourStore.activeEntry.G} bind:b={colourStore.activeEntry.B} />
+        <AlphaSection bind:a={colourStore.activeEntry.A} r={colourStore.activeEntry.R} g={colourStore.activeEntry.G} b={colourStore.activeEntry.B} />
     </div>
 
-    <button onclick={saveActiveBlock}>Save</button>
+    <button onclick={() => colourStore.addPaletteEntry()}>Save</button>
 
-    <ColourBlocks currentBlock={activeRGBA} {blockData} />
+    <ColourBlocks currentBlock={colourStore.activeEntry} blockData={colourStore.palette} />
 </main>
 
 <style>

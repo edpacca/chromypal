@@ -1,21 +1,35 @@
-import type { RGBAColor } from "../types";
+import type { PaletteEntry } from "../types";
 
-export const activeRGBA: RGBAColor = $state({
-    R: 255,
-    G: 0,
-    B: 0,
-    A: 1.0,
-});
+let nextId = 1;
 
-export const blockData: RGBAColor[] = $state([]);
+class ColourStore {
+    palette: PaletteEntry[] = $state([
+        { id: 0, R: 255, G: 0, B: 0, A: 1.0 },
+    ]);
 
-let nextId = 0;
+    activeIndex: number = $state(0);
 
-export const saveActiveBlock = () => {
-    blockData.push({ ...activeRGBA, id: nextId++ });
-};
+    get activeEntry(): PaletteEntry {
+        return this.palette[this.activeIndex];
+    }
 
-export const removeBlock = (id: number) => {
-    const idx = blockData.findIndex(b => b.id === id);
-    if (idx !== -1) blockData.splice(idx, 1);
-};
+    addPaletteEntry() {
+        this.palette.push({ ...this.activeEntry, id: nextId++ });
+        this.activeIndex = this.palette.length - 1;
+    }
+
+    removePaletteEntry(id: number) {
+        if (this.palette.length <= 1) return;
+        const idx = this.palette.findIndex(e => e.id === id);
+        if (idx === -1) return;
+        this.palette.splice(idx, 1);
+        this.activeIndex = Math.min(this.activeIndex, this.palette.length - 1);
+    }
+
+    selectPaletteEntry(id: number) {
+        const idx = this.palette.findIndex(e => e.id === id);
+        if (idx !== -1) this.activeIndex = idx;
+    }
+}
+
+export const colourStore = new ColourStore();

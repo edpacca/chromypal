@@ -6,3 +6,11 @@ export interface RGBAColor {
     id?: number;
 }
 
+export interface PaletteEntry {
+    id: number;
+    R: number;
+    G: number;
+    B: number;
+    A: number;
+}
+
