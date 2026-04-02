@@ -4,7 +4,7 @@ export const activeRGBA: RGBAColor = $state({
     R: 255,
     G: 0,
     B: 0,
-    A: 255,
+    A: 1.0,
 });
 
 export const blockData: RGBAColor[] = $state([]);
