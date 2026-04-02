@@ -31,16 +31,17 @@
         flex-direction: row;
         align-items: stretch;
         height: 15rem;
-        border: 1px solid black;
-        padding: 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        padding: var(--space-md);
     }
 
     .palette__active {
         max-width: 15rem;
         aspect-ratio: 1;
-        border-right: 2px solid grey;
-        margin: 0 8px;
-        padding-right: 8px;
+        border-right: 2px solid var(--color-border);
+        margin: 0 var(--space-sm);
+        padding-right: var(--space-sm);
     }
 
     .palette__saved {

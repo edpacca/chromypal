@@ -41,13 +41,13 @@
 
 <style>
     .input__container {
-        border: 1px solid rgb(187, 187, 187);
+        border: 1px solid var(--color-border);
         display: flex;
         flex-direction: column;
-        padding: 0.25rem;
+        padding: var(--space-xs);
     }
 
     .range_slider__container {
-        padding: 0.5rem 0;
+        padding: var(--space-sm) 0;
     }
 </style>

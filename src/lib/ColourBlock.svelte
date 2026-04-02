@@ -37,7 +37,7 @@
     .block {
         width: 100%;
         height: 100%;
-        border-radius: 4px;
+        border-radius: var(--radius-md);
         position: relative;
         display: flex;
         flex-direction: column;

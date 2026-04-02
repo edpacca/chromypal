@@ -12,7 +12,7 @@
     let {
         value,
         onchange,
-        backgroundStyle = "background: #d1d5db;",
+        backgroundStyle = "background: var(--color-border);",
         patternStyle = "",
         min = 0,
         max = 255,
@@ -37,9 +37,9 @@
 <style>
     .slider {
         width: 100%;
-        height: 24px;
+        height: var(--picker-bar-height);
         position: relative;
-        border-radius: 2px;
+        border-radius: var(--picker-bar-radius);
     }
 
     input {
@@ -56,22 +56,22 @@
 
     input::-webkit-slider-thumb {
         appearance: none;
-        width: 12px;
-        height: 28px;
+        width: var(--thumb-width);
+        height: var(--thumb-height);
         cursor: pointer;
-        border-radius: 2px;
-        background: #9a9eaa;
+        border-radius: var(--radius-sm);
+        background: var(--thumb-color);
         border: none;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
 
     input::-moz-range-thumb {
-        width: 12px;
-        height: 28px;
+        width: var(--thumb-width);
+        height: var(--thumb-height);
         cursor: pointer;
         border: none;
-        background: rgb(255, 255, 255);
-        border-radius: 2px;
+        background: var(--thumb-color);
+        border-radius: var(--radius-sm);
     }
 
     input::-webkit-slider-runnable-track {
