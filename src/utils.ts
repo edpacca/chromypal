@@ -6,5 +6,5 @@ export function rgbaStr (rgba: RGBAColor) {
 
 export function rgbaHexCode (rgba: RGBAColor) {
     const toHex = (n: number) => (n ?? 0).toString(16).padStart(2, '0').toUpperCase();
-    return `#${toHex(rgba.R)}${toHex(rgba.G)}${toHex(rgba.B)}${toHex(rgba.A)}`;
+    return `#${toHex(rgba.R)}${toHex(rgba.G)}${toHex(rgba.B)}${toHex(Math.round(rgba.A * 255))}`;
 }
