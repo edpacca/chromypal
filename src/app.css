@@ -2,6 +2,11 @@
 
 }
 
-main {
+body {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+main {
+    max-width: 1200px;
+    margin: auto;
 }
