@@ -2,21 +2,21 @@
     interface Props {
         value: number;
         onchange: (value: number) => void;
-        backgroundStyle: string;
+        backgroundStyle?: string;
         patternStyle?: string;
         min?: number;
         max?: number;
-        step?: string;
+        step?: number;
     }
 
     let {
         value,
         onchange,
-        backgroundStyle,
+        backgroundStyle = "background: #d1d5db;",
         patternStyle = "",
         min = 0,
         max = 255,
-        step = "1",
+        step = 1,
     }: Props = $props();
 </script>
 
@@ -58,18 +58,19 @@
         appearance: none;
         width: 12px;
         height: 28px;
-        background: rgb(255, 255, 255);
         cursor: pointer;
         border-radius: 2px;
-        border: 1px solid black;
+        background: #9a9eaa;
+        border: none;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
 
     input::-moz-range-thumb {
         width: 12px;
         height: 28px;
-        background: rgb(255, 255, 255);
         cursor: pointer;
         border: none;
+        background: rgb(255, 255, 255);
         border-radius: 2px;
     }
 
