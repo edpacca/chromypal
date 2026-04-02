@@ -25,7 +25,8 @@
     /* Component sizes */
     --picker-bar-height: 24px;
     --picker-bar-radius: 2px;
-    --swatch-size: 40px;
+    --swatch-size: 120px;
+    --swatch-size-sm: 40px;
     --active-swatch-size: 200px;
 
     /* Slider thumb */

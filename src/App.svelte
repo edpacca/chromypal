@@ -15,9 +15,7 @@
         <AlphaSection bind:a={colourStore.activeEntry.A} r={colourStore.activeEntry.R} g={colourStore.activeEntry.G} b={colourStore.activeEntry.B} />
     </div>
 
-    <button onclick={() => colourStore.addPaletteEntry()}>Save</button>
-
-    <ColourBlocks currentBlock={colourStore.activeEntry} blockData={colourStore.palette} />
+    <ColourBlocks />
 </main>
 
 <style>
