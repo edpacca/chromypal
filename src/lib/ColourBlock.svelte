@@ -12,6 +12,7 @@
 </script>
 
 <div class="block__container">
+    <div class="transparent-background"></div>
     <div class="block" style:background-color={mappedColourValue}>
         {#if deleteBlock}
             <button onclick={deleteBlock}>X</button>
@@ -30,6 +31,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
     }
 
     .block {
@@ -41,6 +43,13 @@
         flex-direction: column;
         align-items: baseline;
         justify-content: flex-end;
+    }
+
+    .transparent-background {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        background: repeating-conic-gradient(#ccc 0% 25%, transparent 0% 50%) 0 0 / 16px 16px;
     }
 
     .block__info {
