@@ -22,9 +22,9 @@
     background-color: white;
         background-image: ${alphaGradient},
         repeating-conic-gradient(#ccc 0% 25%, transparent 0% 50%);
-        background-size: 100% 100%, 8px 8px;
+        background-size: 100% 100%, 16px 16px;
         background-position: 0 0, 0 0;
-`);
+    `);
 </script>
 
-<RangeSlider value={a} onchange={handleAlphaChange} {backgroundStyle} />
+<RangeSlider value={a} onchange={handleAlphaChange} {backgroundStyle} min={0} max={1} step={0.01}/>
