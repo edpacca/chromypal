@@ -9,6 +9,7 @@
         max?: number;
         step?: number;
         hasRange?: boolean;
+        backgroundStyle?: string;
     }
 
     let {
@@ -18,7 +19,8 @@
         min = 0,
         max = 255,
         step = 1,
-        hasRange = true
+        hasRange = true,
+        backgroundStyle
     }: Props = $props();
 </script>
 
@@ -29,35 +31,41 @@
         type="number"
         min={min}
         max={max}
-        placeholder="0-255"
         bind:value
     />
     {#if hasRange}
-        <div class="range_slider__container">
-            <RangeSlider {value} onchange={(v) => (value = v)} min={min} max={max} step={step}/>
+        <div class="slider-container">
+            <RangeSlider {value} onchange={(v) => (value = v)} min={min} max={max} step={step} {backgroundStyle}/>
         </div>
     {/if}
 </div>
 
 <style>
-    input[type="number"], label {
-        font-size: 1.5rem;
-        text-align: center;
+    label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        min-width: 80px;
+        flex-shrink: 0;
     }
 
     input[type="number"] {
-        border-radius: var(--radius-md);
-        border-width: 1px;
+        width: 50px;
+        padding: 4px 8px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
+        text-align: center;
+        font-size: 0.9rem;
+        flex-shrink: 0;
     }
 
     .input__container {
-        border: 1px solid var(--color-border);
         display: flex;
-        flex-direction: column;
-        padding: var(--space-xs);
+        flex-direction: row;
+        align-items: center;
+        gap: var(--space-md);
     }
 
-    .range_slider__container {
-        padding: var(--space-sm) 0;
+    .slider-container {
+        flex: 1;
     }
 </style>

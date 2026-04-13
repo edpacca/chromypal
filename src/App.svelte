@@ -1,10 +1,8 @@
 <script lang="ts">
-    import AlphaSection from "./lib/AlphaSection.svelte";
     import ColourBlock from "./lib/ColourBlock.svelte";
     import ColourBlocks from "./lib/ColourBlockPalette.svelte";
-    import RgbSection from "./lib/RgbSection.svelte";
+    import ColourControls from "./lib/ColourControls.svelte";
     import SatBrightPicker from "./lib/SatBrightPicker.svelte";
-    import SatBrightSection from "./lib/SatBrightSection.svelte";
     import { colourStore } from "./store/colourStore.svelte";
 </script>
 
@@ -28,15 +26,7 @@
     </div>
 
     <div class="controls">
-        <RgbSection bind:r={colourStore.active.R} bind:g={colourStore.active.G} bind:b={colourStore.active.B} />
-        <AlphaSection bind:a={colourStore.active.A} r={colourStore.active.R} g={colourStore.active.G} b={colourStore.active.B} />
-        <SatBrightSection
-            hue={colourStore.active.hue}
-            saturation={colourStore.active.saturation}
-            brightness={colourStore.active.brightness}
-            onsaturationchange={(s) => colourStore.active.setSaturation(s)}
-            onbrightnesschange={(v) => colourStore.active.setBrightness(v)}
-        />
+        <ColourControls />
     </div>
 
     <ColourBlocks />

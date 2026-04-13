@@ -13,17 +13,39 @@ class ActiveColour {
     }
 
     get R() { return this._entry.R; }
-    set R(v: number) { this._entry.R = v; }
+    set R(v: number) {
+        this._entry.R = v;
+        const [h, s] = rgbToHsv(this._entry.R, this._entry.G, this._entry.B);
+        if (s > 0.01) this._hue = h;
+    }
+
     get G() { return this._entry.G; }
-    set G(v: number) { this._entry.G = v; }
+    set G(v: number) {
+        this._entry.G = v;
+        const [h, s] = rgbToHsv(this._entry.R, this._entry.G, this._entry.B);
+        if (s > 0.01) this._hue = h;
+    }
+
     get B() { return this._entry.B; }
-    set B(v: number) { this._entry.B = v; }
+    set B(v: number) {
+        this._entry.B = v;
+        const [h, s] = rgbToHsv(this._entry.R, this._entry.G, this._entry.B);
+        if (s > 0.01) this._hue = h;
+    }
     get A() { return this._entry.A; }
     set A(v: number) { this._entry.A = v; }
 
     get hue() { return this._hue; }
+    set hue(h: number) {
+        [this._entry.R, this._entry.G, this._entry.B] = hsvToRgb(h, this.saturation, this.brightness);
+        this._hue = h;
+    }
+
     get saturation() { return rgbToHsv(this._entry.R, this._entry.G, this._entry.B)[1]; }
+    set saturation(s: number) { this.setSaturation(s); }
+
     get brightness() { return rgbToHsv(this._entry.R, this._entry.G, this._entry.B)[2]; }
+    set brightness(v: number) { this.setBrightness(v); }
 
     setRgb(r: number, g: number, b: number) {
         const [h, s] = rgbToHsv(r, g, b);

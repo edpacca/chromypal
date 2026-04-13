@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts"─>
     import { hsvToRgb } from "../utils";
     import RangeSlider from "./RangeSlider.svelte";
 
