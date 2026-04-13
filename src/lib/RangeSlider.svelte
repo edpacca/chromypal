@@ -6,7 +6,7 @@
         patternStyle?: string;
         min?: number;
         max?: number;
-        step?: number;
+        step?: number | string;
     }
 
     let {
