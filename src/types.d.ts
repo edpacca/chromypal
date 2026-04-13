@@ -14,3 +14,5 @@ export interface PaletteEntry {
     A: number;
 }
 
+export type RGB = [number, number, number]
+
