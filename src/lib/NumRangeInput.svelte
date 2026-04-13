@@ -40,6 +40,16 @@
 </div>
 
 <style>
+    input[type="number"], label {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    input[type="number"] {
+        border-radius: var(--radius-md);
+        border-width: 1px;
+    }
+
     .input__container {
         border: 1px solid var(--color-border);
         display: flex;
