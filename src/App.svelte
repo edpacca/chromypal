@@ -2,15 +2,16 @@
     import ColourBlock from "./lib/ColourBlock.svelte";
     import ColourBlocks from "./lib/ColourBlockPalette.svelte";
     import ColourControls from "./lib/ColourControls.svelte";
+    import ColourInfo from "./lib/ColourInfo.svelte";
     import SatBrightPicker from "./lib/SatBrightPicker.svelte";
     import { colourStore } from "./store/colourStore.svelte";
 </script>
 
-<nav>
-    <img src="src/assets/icon.png" alt="chromypal logo"/>
-    <h1>Chromypal</h1>
-</nav>
 <main>
+    <nav>
+        <img src="src/assets/icon.png" alt="chromypal logo" />
+        <h1>Chromypal</h1>
+    </nav>
     <div class="active-row">
         <div class="active-preview">
             <ColourBlock rgba={colourStore.activeEntry} />
@@ -23,6 +24,7 @@
                 onchange={(s, v) => colourStore.active.setSatBright(s, v)}
             />
         </div>
+        <ColourInfo />
     </div>
 
     <div class="controls">
@@ -51,19 +53,19 @@
         flex-direction: row;
         gap: var(--space-md);
         margin-bottom: var(--space-md);
+        height: var(--active-swatch-size);
     }
 
     .active-preview {
         width: var(--active-swatch-size);
-        height: var(--active-swatch-size);
         flex-shrink: 0;
         border-radius: var(--radius-lg);
         overflow: hidden;
     }
 
     .active-picker {
-        flex: 1;
-        max-width: var(--active-swatch-size);
+        flex-shrink: 0;
+        width: var(--active-swatch-size);
     }
 
     .controls {
