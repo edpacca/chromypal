@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { Tween } from "svelte/motion";
+    import { cubicOut } from "svelte/easing";
     import RangeSlider from "./RangeSlider.svelte";
 
     interface Props {
@@ -22,6 +24,8 @@
         hasRange = true,
         backgroundStyle
     }: Props = $props();
+
+    const display = Tween.of(() => value, { duration: 200, easing: cubicOut });
 </script>
 
 <div class="input__container">
@@ -35,7 +39,7 @@
     />
     {#if hasRange}
         <div class="slider-container">
-            <RangeSlider {value} onchange={(v) => (value = v)} min={min} max={max} step={step} {backgroundStyle}/>
+            <RangeSlider value={display.current} onchange={(v) => (value = v)} min={min} max={max} step={step} {backgroundStyle}/>
         </div>
     {/if}
 </div>
