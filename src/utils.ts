@@ -34,6 +34,24 @@ export function rgbToHsv(
     return [h, s, v];
 }
 
+/** RGB (0–255) → HSL (h: 0–360, s: 0–100, l: 0–100) */
+export function rgbToHsl(r: number, g: number, b: number): [number, number, number] {
+    const rn = r / 255, gn = g / 255, bn = b / 255;
+    const max = Math.max(rn, gn, bn);
+    const min = Math.min(rn, gn, bn);
+    const delta = max - min;
+    const l = (max + min) / 2;
+    const s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+    let h = 0;
+    if (delta !== 0) {
+        if (max === rn)      h = ((gn - bn) / delta) % 6;
+        else if (max === gn) h = (bn - rn) / delta + 2;
+        else                 h = (rn - gn) / delta + 4;
+        h = (h * 60 + 360) % 360;
+    }
+    return [Math.round(h), Math.round(s * 100), Math.round(l * 100)];
+}
+
 /** HSV (h: 0–360, s: 0–1, v: 0–1) → RGB (0–255) */
 export function hsvToRgb(
     h: number,

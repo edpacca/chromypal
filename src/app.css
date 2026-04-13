@@ -23,7 +23,7 @@
     --radius-pill: 999px;
 
     /* Component sizes */
-    --picker-bar-height: 24px;
+    --picker-bar-height: 32px;
     --picker-bar-radius: 2px;
     --swatch-size: 120px;
     --swatch-size-sm: 40px;
@@ -31,7 +31,7 @@
 
     /* Slider thumb */
     --thumb-width: 12px;
-    --thumb-height: 28px;
+    --thumb-height: calc(var(--picker-bar-height) + 4px);
     --thumb-color: #9a9eaa;
 }
 

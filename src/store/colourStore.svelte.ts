@@ -1,4 +1,4 @@
-import { hsvToRgb, rgbToHsv } from "../utils";
+import { hsvToRgb, rgbToHsv, rgbToHsl, rgbaHexCode, rgbaStr } from "../utils";
 import type { PaletteEntry } from "../types";
 
 let nextId = 1;
@@ -46,6 +46,32 @@ class ActiveColour {
 
     get brightness() { return rgbToHsv(this._entry.R, this._entry.G, this._entry.B)[2]; }
     set brightness(v: number) { this.setBrightness(v); }
+
+    get hexString(): string {
+        const toHex = (n: number) => n.toString(16).padStart(2, "0").toUpperCase();
+        return `#${toHex(this._entry.R)}${toHex(this._entry.G)}${toHex(this._entry.B)}`;
+    }
+    get hexAlphaString(): string {
+        return rgbaHexCode(this._entry);
+    }
+    get rgbString(): string {
+        return `rgb(${this._entry.R}, ${this._entry.G}, ${this._entry.B})`;
+    }
+    get rgbaString(): string {
+        return rgbaStr(this._entry);
+    }
+    get hslString(): string {
+        const [h, s, l] = rgbToHsl(this._entry.R, this._entry.G, this._entry.B);
+        return `hsl(${h}, ${s}%, ${l}%)`;
+    }
+    get hslaString(): string {
+        const [h, s, l] = rgbToHsl(this._entry.R, this._entry.G, this._entry.B);
+        return `hsla(${h}, ${s}%, ${l}%, ${this._entry.A})`;
+    }
+    get hsvString(): string {
+        const [h, s, v] = rgbToHsv(this._entry.R, this._entry.G, this._entry.B);
+        return `hsv(${Math.round(h)}, ${Math.round(s * 100)}%, ${Math.round(v * 100)}%)`;
+    }
 
     setRgb(r: number, g: number, b: number) {
         const [h, s] = rgbToHsv(r, g, b);
