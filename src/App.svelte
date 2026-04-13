@@ -4,7 +4,31 @@
     import ColourBlocks from "./lib/ColourBlockPalette.svelte";
     import RgbSection from "./lib/RgbSection.svelte";
     import SatBrightPicker from "./lib/SatBrightPicker.svelte";
+    import SatBrightSection from "./lib/SatBrightSection.svelte";
+    import { hsvToRgb, rgbToHsv } from "./utils";
     import { colourStore } from "./store/colourStore.svelte";
+
+    let hsv = $derived(rgbToHsv(colourStore.activeEntry.R, colourStore.activeEntry.G, colourStore.activeEntry.B));
+    let internalHue = $state(rgbToHsv(colourStore.activeEntry.R, colourStore.activeEntry.G, colourStore.activeEntry.B)[0]);
+
+    $effect(() => {
+        if (hsv[1] > 0.01) internalHue = hsv[0];
+    });
+
+    let saturation = $derived(hsv[1]);
+    let brightness = $derived(hsv[2]);
+
+    function onSatBrightChange(s: number, v: number) {
+        [colourStore.activeEntry.R, colourStore.activeEntry.G, colourStore.activeEntry.B] = hsvToRgb(internalHue, s, v);
+    }
+
+    function onSaturationChange(s: number) {
+        [colourStore.activeEntry.R, colourStore.activeEntry.G, colourStore.activeEntry.B] = hsvToRgb(internalHue, s, brightness);
+    }
+
+    function onBrightnessChange(v: number) {
+        [colourStore.activeEntry.R, colourStore.activeEntry.G, colourStore.activeEntry.B] = hsvToRgb(internalHue, saturation, v);
+    }
 </script>
 
 <nav>
@@ -18,9 +42,10 @@
         </div>
         <div class="active-picker">
             <SatBrightPicker
-                bind:r={colourStore.activeEntry.R}
-                bind:g={colourStore.activeEntry.G}
-                bind:b={colourStore.activeEntry.B}
+                hue={internalHue}
+                saturation={saturation}
+                brightness={brightness}
+                onchange={onSatBrightChange}
             />
         </div>
     </div>
@@ -28,6 +53,13 @@
     <div class="controls">
         <RgbSection bind:r={colourStore.activeEntry.R} bind:g={colourStore.activeEntry.G} bind:b={colourStore.activeEntry.B} />
         <AlphaSection bind:a={colourStore.activeEntry.A} r={colourStore.activeEntry.R} g={colourStore.activeEntry.G} b={colourStore.activeEntry.B} />
+        <SatBrightSection
+            hue={internalHue}
+            saturation={saturation}
+            brightness={brightness}
+            onsaturationchange={onSaturationChange}
+            onbrightnesschange={onBrightnessChange}
+        />
     </div>
 
     <ColourBlocks />

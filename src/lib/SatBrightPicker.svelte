@@ -1,27 +1,17 @@
 <script lang="ts">
-    import { hsvToRgb, rgbToHsv } from "../utils";
+    import { hsvToRgb } from "../utils";
 
     interface Props {
-        r: number;
-        g: number;
-        b: number;
+        hue: number;
+        saturation: number;
+        brightness: number;
+        onchange: (saturation: number, brightness: number) => void;
     }
 
-    let { r = $bindable(0), g = $bindable(0), b = $bindable(0) }: Props = $props();
-
-    // Keep hue stable when color becomes achromatic (s≈0 or v≈0)
-    let internalHue = $state(rgbToHsv(r, g, b)[0]);
-
-    let hsv = $derived(rgbToHsv(r, g, b));
-    let saturation = $derived(hsv[1]);
-    let brightness = $derived(hsv[2]);
-
-    $effect(() => {
-        if (hsv[1] > 0.01) internalHue = hsv[0];
-    });
+    let { hue, saturation, brightness, onchange }: Props = $props();
 
     // Pure hue color for the gradient background
-    let hueRgb = $derived(hsvToRgb(internalHue, 1, 1));
+    let hueRgb = $derived(hsvToRgb(hue, 1, 1));
     let hueColor = $derived(`rgb(${hueRgb[0]}, ${hueRgb[1]}, ${hueRgb[2]})`);
 
     let boxEl: HTMLDivElement;
@@ -29,9 +19,9 @@
 
     function updateFromPointer(e: PointerEvent) {
         const rect = boxEl.getBoundingClientRect();
-        const s = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        const v = Math.max(0, Math.min(1, 1 - (e.clientY - rect.top) / rect.height));
-        [r, g, b] = hsvToRgb(internalHue, s, v);
+        const newS = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        const newV = Math.max(0, Math.min(1, 1 - (e.clientY - rect.top) / rect.height));
+        onchange(newS, newV);
     }
 
     function onPointerDown(e: PointerEvent) {
