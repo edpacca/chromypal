@@ -9,7 +9,7 @@
 
 <main>
     <nav>
-        <img src="src/assets/icon.png" alt="chromypal logo" />
+        <img src="icon.png" alt="chromypal logo" />
         <h1>Chromypal</h1>
     </nav>
     <div class="active-row">
